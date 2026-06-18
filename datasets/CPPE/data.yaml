@@ -1,6 +1,7 @@
-train: ../train/images
-val: ../valid/images
-test: ../test/images
+path: .
+train: train/images
+val: valid/images
+test: test/images
 
 nc: 4
 names: ['gloves', 'harness', 'helmet', 'shoes']

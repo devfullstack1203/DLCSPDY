@@ -1,0 +1,8 @@
+# CHVG — Construction site multi-class detection (8 classes)
+path: ../../datasets/CHVG
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 8
+names: ['blue', 'glass', 'head', 'person', 'red', 'vest', 'white', 'yellow']

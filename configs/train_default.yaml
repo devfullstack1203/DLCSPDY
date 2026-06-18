@@ -1,0 +1,79 @@
+# Training hyperparameters — matches Colab notebooks (PPE2025 / CHVG / CPPE)
+# Hardware reference: NVIDIA L4 (22 GB), PyTorch 2.9.0, Python 3.12.12
+
+# Default student model (CSPDY — used for DLCSPDY distillation)
+model: ultralytics/cfg/models/v13/CSPDYyolov13n.yaml
+data: configs/datasets/ppe2025.yaml
+variant: dlcspdy  # yolov13 | dy | csp | cspdy | dlcspdy
+
+task: detect
+
+# Input (Colab: epochs=200, imgsz=640, batch=32)
+imgsz: 640
+batch: 32
+epochs: 200
+workers: 8
+
+# Optimizer
+optimizer: auto
+lr0: 0.01
+lrf: 0.01
+momentum: 0.9
+weight_decay: 0.0005
+
+# Warm-up
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+warmup_bias_lr: 0.1
+
+# Loss weights
+box: 7.5
+cls: 0.5
+dfl: 1.5
+
+# Augmentation
+mosaic: 1.0
+close_mosaic: 10
+fliplr: 0.5
+translate: 0.1
+scale: 0.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+copy_paste: 0.1
+copy_paste_mode: flip
+auto_augment: randaugment
+
+# Standard training (baselines: yolov13, dy, csp, cspdy)
+project: runs/detect
+name: train
+save_period: 50
+amp: true
+deterministic: true
+seed: 0
+val: true
+save: true
+patience: 100
+pretrained: true
+plots: true
+exist_ok: false
+cache: false
+single_cls: false
+
+# DLCSPDY distillation overrides (Colab: project=runs/train, workers=0)
+distill:
+  project: runs/train
+  workers: 0
+  # Teacher checkpoints — train baseline first, then point here
+  teachers:
+    ppe2025: null   # e.g. runs/detect/PPEyolov13n/weights/best.pt
+    chvg: null      # e.g. runs/detect/CHVGyolov13nLAI/weights/best.pt
+    cppe: null      # e.g. runs/detect/ENVyolov13n/weights/best.pt
+
+# Model YAML per variant (scale n)
+variants:
+  yolov13: ultralytics/cfg/models/v13/yolov13n.yaml
+  dy: ultralytics/cfg/models/v13/DYyolov13n.yaml
+  csp: ultralytics/cfg/models/v13/CSPyolov13n.yaml
+  cspdy: ultralytics/cfg/models/v13/CSPDYyolov13n.yaml
+  dlcspdy: ultralytics/cfg/models/v13/CSPDYyolov13n.yaml

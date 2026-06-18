@@ -1,0 +1,8 @@
+# PPE2025 — Helmet / Vest detection (4 classes)
+path: ../../datasets/PPE2025
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 4
+names: ['Helmet', 'NoHelmet', 'NoVest', 'Vest']

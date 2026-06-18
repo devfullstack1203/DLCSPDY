@@ -1,0 +1,8 @@
+# CPPE — Construction PPE detection (4 classes)
+path: ../../datasets/CPPE
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 4
+names: ['gloves', 'harness', 'helmet', 'shoes']
