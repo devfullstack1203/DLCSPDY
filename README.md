@@ -29,7 +29,7 @@ DLCSPDY/
 
 ```bash
 # Clone the repository
-git clone https://github.com/devfullstack1203/DLCSPDY.git
+git clone https://github.com/vttai-dev/DLCSPDY.git
 cd DLCSPDY
 
 # Create a virtual environment (recommended)
